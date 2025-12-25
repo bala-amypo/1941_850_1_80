@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "academic_events")
 public class AcademicEvent {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long branchId;
     private String title;
@@ -19,26 +18,8 @@ public class AcademicEvent {
     private String description;
     private LocalDateTime submittedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        this.submittedAt = LocalDateTime.now();
-    }
+    @PrePersist protected void onCreate() { this.submittedAt = LocalDateTime.now(); }
 
-    // Constructors
-    public AcademicEvent() {}
-    public AcademicEvent(Long id, Long branchId, String title, String eventType, LocalDate startDate, LocalDate endDate, String location, String description, LocalDateTime submittedAt) {
-        this.id = id;
-        this.branchId = branchId;
-        this.title = title;
-        this.eventType = eventType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.description = description;
-        this.submittedAt = submittedAt;
-    }
-
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Long getBranchId() { return branchId; }

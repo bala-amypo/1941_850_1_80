@@ -7,36 +7,18 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "harmonized_calendars")
 public class HarmonizedCalendar {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String generatedBy;
     private LocalDateTime generatedAt;
     private LocalDate effectiveFrom;
     private LocalDate effectiveTo;
-    
     @Column(columnDefinition = "TEXT")
-    private String eventsJson; // Storing aggregated events as JSON string
+    private String eventsJson;
 
-    @PrePersist
-    protected void onCreate() {
-        this.generatedAt = LocalDateTime.now();
-    }
+    @PrePersist protected void onCreate() { this.generatedAt = LocalDateTime.now(); }
 
-    // Constructors
-    public HarmonizedCalendar() {}
-    public HarmonizedCalendar(Long id, String title, String generatedBy, LocalDateTime generatedAt, LocalDate effectiveFrom, LocalDate effectiveTo, String eventsJson) {
-        this.id = id;
-        this.title = title;
-        this.generatedBy = generatedBy;
-        this.generatedAt = generatedAt;
-        this.effectiveFrom = effectiveFrom;
-        this.effectiveTo = effectiveTo;
-        this.eventsJson = eventsJson;
-    }
-
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTitle() { return title; }
