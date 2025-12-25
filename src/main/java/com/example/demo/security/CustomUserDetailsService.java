@@ -10,13 +10,13 @@ import java.util.Collections;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserAccountRepository repository;
-    public CustomerUserDetailsService(UserAccountRepository repository) { this.repository = repository; }
+    public CustomUserDetailsService(UserAccountRepository repository) { this.repository = repository; }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserAccount user = repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new User(user.getEmail(), user.getPassword(), 
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
+            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
     }
 }

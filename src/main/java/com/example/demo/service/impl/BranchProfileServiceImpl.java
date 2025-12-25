@@ -6,32 +6,18 @@ import com.example.demo.repository.BranchProfileRepository;
 import com.example.demo.service.BranchProfileService;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
 @Service
 public class BranchProfileServiceImpl implements BranchProfileService {
     private final BranchProfileRepository repository;
     public BranchProfileServiceImpl(BranchProfileRepository repository) { this.repository = repository; }
-
-    @Override
-    public BranchProfile createBranch(BranchProfile branch) {
-        if (repository.findByBranchCode(branch.getBranchCode()).isPresent())
-            throw new ValidationException("Branch code exists.");
-        return repository.save(branch);
+    public BranchProfile createBranch(BranchProfile branch) { 
+        if (repository.findByBranchCode(branch.getBranchCode()).isPresent()) throw new ValidationException("Branch code exists");
+        return repository.save(branch); 
     }
-    @Override
     public BranchProfile updateBranchStatus(Long id, boolean active) {
-        BranchProfile branch = getBranchById(id);
-        branch.setActive(active);
-        return repository.save(branch);
+        BranchProfile b = getBranchById(id); b.setActive(active); return repository.save(b);
     }
-    @Override
     public List<BranchProfile> getAllBranches() { return repository.findAll(); }
-    @Override
-    public BranchProfile getBranchById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Branch not found: " + id));
-    }
-    @Override
-    public BranchProfile findByBranchCode(String branchCode) {
-        return repository.findByBranchCode(branchCode).orElseThrow(() -> new ResourceNotFoundException("Branch not found: " + branchCode));
-    }
+    public BranchProfile getBranchById(Long id) { return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Branch not found")); }
+    public BranchProfile findByBranchCode(String code) { return repository.findByBranchCode(code).orElseThrow(()->new ResourceNotFoundException("Branch not found")); }
 }
