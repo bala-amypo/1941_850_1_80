@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomerUserDetailsService implements UserDetailsService {
     private final UserAccountRepository repository;
-    public CustomUserDetailsService(UserAccountRepository repository) { this.repository = repository; }
+    public CustomerUserDetailsService(UserAccountRepository repository) { this.repository = repository; }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
