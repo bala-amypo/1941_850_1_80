@@ -11,7 +11,6 @@ import java.util.List;
 public class BranchProfileController {
     private final BranchProfileService service;
     public BranchProfileController(BranchProfileService service) { this.service = service; }
-
     @PostMapping
     public BranchProfile createBranch(@RequestBody BranchProfile branch) { return service.createBranch(branch); }
     @PutMapping("/{id}/status")

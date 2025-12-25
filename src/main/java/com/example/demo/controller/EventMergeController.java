@@ -13,7 +13,6 @@ import java.util.List;
 public class EventMergeController {
     private final EventMergeService service;
     public EventMergeController(EventMergeService service) { this.service = service; }
-
     @PostMapping
     public EventMergeRecord mergeEvents(@RequestBody MergeEventsRequest request) { return service.mergeEvents(request.getEventIds(), request.getReason()); }
     @GetMapping("/{id}")

@@ -11,7 +11,6 @@ import java.util.List;
 public class AcademicEventController {
     private final AcademicEventService service;
     public AcademicEventController(AcademicEventService service) { this.service = service; }
-
     @PostMapping
     public AcademicEvent createEvent(@RequestBody AcademicEvent event) { return service.createEvent(event); }
     @PutMapping("/{id}")

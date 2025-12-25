@@ -11,7 +11,6 @@ import java.util.List;
 public class ClashRecordController {
     private final ClashDetectionService service;
     public ClashRecordController(ClashDetectionService service) { this.service = service; }
-
     @PostMapping
     public ClashRecord logClash(@RequestBody ClashRecord clash) { return service.logClash(clash); }
     @PutMapping("/{id}/resolve")
