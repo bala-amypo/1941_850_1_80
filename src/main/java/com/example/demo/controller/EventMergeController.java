@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.dto.MergeEventsRequest;
 import com.example.demo.entity.EventMergeRecord;
 import com.example.demo.service.EventMergeService;
@@ -12,30 +11,15 @@ import java.util.List;
 @RequestMapping("/api/merge-records")
 @Tag(name = "Event Merge Records")
 public class EventMergeController {
-
     private final EventMergeService service;
-
-    public EventMergeController(EventMergeService service) {
-        this.service = service;
-    }
+    public EventMergeController(EventMergeService service) { this.service = service; }
 
     @PostMapping
-    public EventMergeRecord mergeEvents(@RequestBody MergeEventsRequest request) {
-        return service.mergeEvents(request.getEventIds(), request.getReason());
-    }
-
+    public EventMergeRecord mergeEvents(@RequestBody MergeEventsRequest request) { return service.mergeEvents(request.getEventIds(), request.getReason()); }
     @GetMapping("/{id}")
-    public EventMergeRecord getMergeRecordById(@PathVariable Long id) {
-        return service.getMergeRecordById(id);
-    }
-
+    public EventMergeRecord getMergeRecordById(@PathVariable Long id) { return service.getMergeRecordById(id); }
     @GetMapping
-    public List<EventMergeRecord> getAllMergeRecords() {
-        return service.getAllMergeRecords();
-    }
-
+    public List<EventMergeRecord> getAllMergeRecords() { return service.getAllMergeRecords(); }
     @GetMapping("/range")
-    public List<EventMergeRecord> getMergeRecordsByDate(@RequestParam LocalDate start, @RequestParam LocalDate end) {
-        return service.getMergeRecordsByDate(start, end);
-    }
+    public List<EventMergeRecord> getMergeRecordsByDate(@RequestParam LocalDate start, @RequestParam LocalDate end) { return service.getMergeRecordsByDate(start, end); }
 }
