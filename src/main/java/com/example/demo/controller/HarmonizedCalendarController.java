@@ -13,7 +13,6 @@ import java.util.Map;
 public class HarmonizedCalendarController {
     private final HarmonizedCalendarService service;
     public HarmonizedCalendarController(HarmonizedCalendarService service) { this.service = service; }
-
     @PostMapping("/generate")
     public HarmonizedCalendar generateCalendar(@RequestBody Map<String, String> payload) { return service.generateHarmonizedCalendar(payload.get("title"), payload.get("generatedBy")); }
     @GetMapping("/{id}")

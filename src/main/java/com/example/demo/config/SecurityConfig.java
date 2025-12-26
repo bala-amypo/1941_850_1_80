@@ -32,15 +32,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/",                        // <--- ALLOW ROOT PATH
                     "/auth/**", 
                     "/swagger-ui/**", 
                     "/swagger-ui.html", 
                     "/v3/api-docs/**", 
-                    "/api-docs/**",             // Critical for Swagger config loading
-                    "/simple-status",
-                    "/error",                   // Allow default error page
-                    "/favicon.ico"              // Allow browser icon
+                    "/api-docs/**", 
+                    "/simple-status"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
