@@ -1,4 +1,5 @@
 package com.example.demo.service.impl;
+
 import com.example.demo.entity.AcademicEvent;
 import com.example.demo.entity.EventMergeRecord;
 import com.example.demo.exception.ResourceNotFoundException;
@@ -23,8 +24,10 @@ public class EventMergeServiceImpl implements EventMergeService {
     @Override
     public EventMergeRecord mergeEvents(List<Long> eventIds, String reason) {
         List<AcademicEvent> events = eventRepo.findAllById(eventIds);
-        // Pass Test t82
-        if (events.isEmpty()) throw new ResourceNotFoundException("No events found");
+        // Fix for Test t82
+        if (events.isEmpty()) {
+            throw new ResourceNotFoundException("No events found");
+        }
         
         String ids = eventIds.stream().map(String::valueOf).collect(Collectors.joining(","));
         EventMergeRecord record = new EventMergeRecord();
@@ -33,6 +36,7 @@ public class EventMergeServiceImpl implements EventMergeService {
         record.setMergedTitle("Merged Event");
         record.setMergedStartDate(LocalDate.now());
         record.setMergedEndDate(LocalDate.now());
+        
         return mergeRepo.save(record);
     }
 

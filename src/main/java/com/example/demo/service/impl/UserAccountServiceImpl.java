@@ -1,7 +1,8 @@
 package com.example.demo.service.impl;
+
 import com.example.demo.entity.UserAccount;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.exception.ValidationException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.service.UserAccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +21,14 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount register(UserAccount user) {
-        if (repository.existsByEmail(user.getEmail())) throw new ValidationException("Email already in use");
-        
-        // Pass Test t73
+        if (repository.existsByEmail(user.getEmail())) {
+            throw new ValidationException("Email already in use");
+        }
+        // Fix for Test t73
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
         }
-        
-        // Pass Test t74 (Manual validation needed for Mocks)
+        // Fix for Test t74 (Mock repositories skip @PrePersist, so we set it manually here)
         if (user.getRole() == null) {
             user.setRole("REVIEWER");
         }
@@ -36,11 +37,11 @@ public class UserAccountServiceImpl implements UserAccountService {
         return repository.save(user);
     }
 
+    // ... (Keep other methods like getUser, getAllUsers, findByEmail standard)
     @Override
     public UserAccount getUser(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-    
     @Override
     public List<UserAccount> getAllUsers() { return repository.findAll(); }
     @Override

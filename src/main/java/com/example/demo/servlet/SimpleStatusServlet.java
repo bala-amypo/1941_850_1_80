@@ -8,8 +8,10 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/simple-status")
 public class SimpleStatusServlet extends HttpServlet {
+
+    // CHANGE: "protected" -> "public" so the external Test class can call it
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setStatus(200);
         resp.getWriter().write("Servlet Alive");
     }
