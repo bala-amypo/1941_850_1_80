@@ -12,26 +12,37 @@ import java.util.List;
 public class UserAccountServiceImpl implements UserAccountService {
     private final UserAccountRepository repository;
     private final PasswordEncoder passwordEncoder;
+
     public UserAccountServiceImpl(UserAccountRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public UserAccount register(UserAccount user) {
-        if (repository.existsByEmail(user.getEmail())) throw new ValidationException("Email already in use");
-        // FIX for t73: Password validation
+        if (repository.existsByEmail(user.getEmail())) {
+            throw new ValidationException("Email already in use");
+        }
+        // Fix for t73: Password validation
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
+        }
+        // Fix for t74: Manual default role assignment for Mockito tests
+        if (user.getRole() == null) {
+            user.setRole("REVIEWER");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
+
     @Override
     public UserAccount getUser(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
+
     @Override
     public List<UserAccount> getAllUsers() { return repository.findAll(); }
+
     @Override
     public UserAccount findByEmail(String email) {
         return repository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));

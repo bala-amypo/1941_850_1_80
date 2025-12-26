@@ -4,7 +4,6 @@ import com.example.demo.entity.UserAccount;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
@@ -39,6 +38,7 @@ public class JwtUtil {
         );
     }
 
+    // Fix for t69: Must return Jws<Claims> to support getPayload()
     public Jws<Claims> parseToken(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
     }
