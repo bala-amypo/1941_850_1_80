@@ -23,6 +23,8 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
         }
+        // FIX for t74: Set default role if null
+        if (user.getRole() == null) user.setRole("REVIEWER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
