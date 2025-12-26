@@ -4,6 +4,7 @@ import com.example.demo.entity.UserAccount;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
@@ -38,13 +39,16 @@ public class JwtUtil {
         );
     }
 
-    // Pass Tests t69-t72 which call .getPayload()
     public Jws<Claims> parseToken(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
     }
 
     public String extractUsername(String token) {
         return parseToken(token).getPayload().getSubject();
+    }
+
+    public String extractEmail(String token) {
+        return extractUsername(token);
     }
 
     public String extractRole(String token) {
@@ -57,13 +61,18 @@ public class JwtUtil {
 
     public boolean isTokenValid(String token, String email) {
         try {
-            return extractUsername(token).equals(email) && !parseToken(token).getPayload().getExpiration().before(new Date());
+            final String username = extractUsername(token);
+            return (username.equals(email) && !isTokenExpired(token));
         } catch (Exception e) {
             return false;
         }
     }
+
+    private boolean isTokenExpired(String token) {
+        return parseToken(token).getPayload().getExpiration().before(new Date());
+    }
     
-    // Helper needed for JwtAuthenticationFilter
-    public String extractEmail(String token) { return extractUsername(token); }
-    public boolean validateToken(String token, String email) { return isTokenValid(token, email); }
+    public boolean validateToken(String token, String email) {
+        return isTokenValid(token, email);
+    }
 }

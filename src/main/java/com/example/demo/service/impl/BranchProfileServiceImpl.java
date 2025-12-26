@@ -11,7 +11,6 @@ public class BranchProfileServiceImpl implements BranchProfileService {
     private final BranchProfileRepository repository;
     public BranchProfileServiceImpl(BranchProfileRepository repository) { this.repository = repository; }
     public BranchProfile createBranch(BranchProfile branch) { 
-        if (repository.findByBranchCode(branch.getBranchCode()).isPresent()) throw new ValidationException("Branch code exists");
         return repository.save(branch); 
     }
     public BranchProfile updateBranchStatus(Long id, boolean active) {
