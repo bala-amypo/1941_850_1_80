@@ -16,3 +16,4 @@ public class SimpleStatusServlet extends HttpServlet {
         resp.getWriter().write("Servlet Alive");
     }
 }
+
