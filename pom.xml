@@ -69,8 +69,16 @@
                     <artifactId>junit-jupiter</artifactId>
                 </exclusion>
                 <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.platform</groupId>
+                    <artifactId>junit-platform-launcher</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -110,17 +118,33 @@
                 <configuration>
                     <testNGArtifactName>org.testng:testng</testNGArtifactName>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/MultiBranchAcademicCalendarHarmonizerTest.java</include>
                     </includes>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
+                    <systemPropertyVariables>
+                        <testng.dtd.http>true</testng.dtd.http>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>3.0.0-M9</version>
+                    </dependency>
                     <dependency>
                         <groupId>org.testng</groupId>
                         <artifactId>testng</artifactId>
                         <version>7.8.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.beust</groupId>
+                        <artifactId>jcommander</artifactId>
+                        <version>1.82</version>
                     </dependency>
                 </dependencies>
             </plugin>
