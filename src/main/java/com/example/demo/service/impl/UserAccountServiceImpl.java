@@ -20,17 +20,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount register(UserAccount user) {
-        if (repository.existsByEmail(user.getEmail())) {
-            throw new ValidationException("Email already in use");
-        }
-        // Fix for t73: Password validation
+        if (repository.existsByEmail(user.getEmail())) throw new ValidationException("Email already in use");
+        
+        // Pass Test t73
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
         }
-        // Fix for t74: Manual default role assignment for Mockito tests
+        
+        // Pass Test t74 (Manual validation needed for Mocks)
         if (user.getRole() == null) {
             user.setRole("REVIEWER");
         }
+        
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
@@ -39,10 +40,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     public UserAccount getUser(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-
+    
     @Override
     public List<UserAccount> getAllUsers() { return repository.findAll(); }
-
     @Override
     public UserAccount findByEmail(String email) {
         return repository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));

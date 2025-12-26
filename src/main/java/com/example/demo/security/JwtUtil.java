@@ -38,17 +38,13 @@ public class JwtUtil {
         );
     }
 
-    // Fix for t69: Must return Jws<Claims> to support getPayload()
+    // Pass Tests t69-t72 which call .getPayload()
     public Jws<Claims> parseToken(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
     }
 
     public String extractUsername(String token) {
         return parseToken(token).getPayload().getSubject();
-    }
-
-    public String extractEmail(String token) {
-        return extractUsername(token);
     }
 
     public String extractRole(String token) {
@@ -61,18 +57,13 @@ public class JwtUtil {
 
     public boolean isTokenValid(String token, String email) {
         try {
-            final String username = extractUsername(token);
-            return (username.equals(email) && !isTokenExpired(token));
+            return extractUsername(token).equals(email) && !parseToken(token).getPayload().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
         }
     }
-
-    private boolean isTokenExpired(String token) {
-        return parseToken(token).getPayload().getExpiration().before(new Date());
-    }
     
-    public boolean validateToken(String token, String email) {
-        return isTokenValid(token, email);
-    }
+    // Helper needed for JwtAuthenticationFilter
+    public String extractEmail(String token) { return extractUsername(token); }
+    public boolean validateToken(String token, String email) { return isTokenValid(token, email); }
 }

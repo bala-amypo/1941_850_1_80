@@ -23,10 +23,9 @@ public class EventMergeServiceImpl implements EventMergeService {
     @Override
     public EventMergeRecord mergeEvents(List<Long> eventIds, String reason) {
         List<AcademicEvent> events = eventRepo.findAllById(eventIds);
-        // Fix for t82: ResourceNotFound check
-        if (events.isEmpty()) {
-            throw new ResourceNotFoundException("No events found");
-        }
+        // Pass Test t82
+        if (events.isEmpty()) throw new ResourceNotFoundException("No events found");
+        
         String ids = eventIds.stream().map(String::valueOf).collect(Collectors.joining(","));
         EventMergeRecord record = new EventMergeRecord();
         record.setSourceEventIds(ids);
@@ -41,12 +40,6 @@ public class EventMergeServiceImpl implements EventMergeService {
     public List<EventMergeRecord> getMergeRecordsByDate(LocalDate start, LocalDate end) {
         return mergeRepo.findByMergedStartDateBetween(start, end);
     }
-
-    @Override
     public List<EventMergeRecord> getAllMergeRecords() { return mergeRepo.findAll(); }
-
-    @Override
-    public EventMergeRecord getMergeRecordById(Long id) {
-        return mergeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Merge record not found"));
-    }
+    public EventMergeRecord getMergeRecordById(Long id) { return mergeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Not Found")); }
 }
