@@ -23,14 +23,11 @@ public class BranchProfile {
         this.lastSyncAt = lastSyncAt;
         this.active = active;
     }
-
-    // Must be public and named 'prePersist' for Test t30
-    @PrePersist 
-    public void prePersist() {
+    @PrePersist public void prePersist() {
         this.lastSyncAt = LocalDateTime.now();
         if (this.active == null) this.active = true;
     }
-
+    // Getters/Setters omitted for brevity, MUST INCLUDE ALL
     public Long getId() { return id; } public void setId(Long id) { this.id = id; }
     public String getBranchCode() { return branchCode; } public void setBranchCode(String branchCode) { this.branchCode = branchCode; }
     public String getBranchName() { return branchName; } public void setBranchName(String branchName) { this.branchName = branchName; }

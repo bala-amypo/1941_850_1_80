@@ -26,14 +26,11 @@ public class ClashRecord {
         this.detectedAt = detectedAt;
         this.resolved = resolved;
     }
-
-    // Test t33
-    @PrePersist 
-    public void prePersist() {
+    @PrePersist public void prePersist() {
         this.detectedAt = LocalDateTime.now();
         if (this.resolved == null) this.resolved = false;
     }
-
+    // Getters/Setters omitted for brevity, MUST INCLUDE ALL
     public Long getId() { return id; } public void setId(Long id) { this.id = id; }
     public Long getEventAId() { return eventAId; } public void setEventAId(Long eventAId) { this.eventAId = eventAId; }
     public Long getEventBId() { return eventBId; } public void setEventBId(Long eventBId) { this.eventBId = eventBId; }

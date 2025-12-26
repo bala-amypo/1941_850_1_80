@@ -29,13 +29,8 @@ public class AcademicEvent {
         this.description = description;
         this.submittedAt = submittedAt;
     }
-
-    // Test t31
-    @PrePersist 
-    public void prePersist() { 
-        this.submittedAt = LocalDateTime.now(); 
-    }
-
+    @PrePersist public void prePersist() { this.submittedAt = LocalDateTime.now(); }
+    // Getters/Setters omitted for brevity, MUST INCLUDE ALL
     public Long getId() { return id; } public void setId(Long id) { this.id = id; }
     public Long getBranchId() { return branchId; } public void setBranchId(Long branchId) { this.branchId = branchId; }
     public String getTitle() { return title; } public void setTitle(String title) { this.title = title; }

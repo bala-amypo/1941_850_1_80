@@ -26,13 +26,8 @@ public class HarmonizedCalendar {
         this.effectiveTo = effectiveTo;
         this.eventsJson = eventsJson;
     }
-
-    // Test t34
-    @PrePersist 
-    public void prePersist() { 
-        this.generatedAt = LocalDateTime.now(); 
-    }
-
+    @PrePersist public void prePersist() { this.generatedAt = LocalDateTime.now(); }
+    // Getters/Setters omitted for brevity, MUST INCLUDE ALL
     public Long getId() { return id; } public void setId(Long id) { this.id = id; }
     public String getTitle() { return title; } public void setTitle(String title) { this.title = title; }
     public String getGeneratedBy() { return generatedBy; } public void setGeneratedBy(String generatedBy) { this.generatedBy = generatedBy; }
