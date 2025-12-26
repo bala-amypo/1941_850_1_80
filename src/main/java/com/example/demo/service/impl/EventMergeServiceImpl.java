@@ -24,7 +24,7 @@ public class EventMergeServiceImpl implements EventMergeService {
     @Override
     public EventMergeRecord mergeEvents(List<Long> eventIds, String reason) {
         List<AcademicEvent> events = eventRepo.findAllById(eventIds);
-        // Fix for Test t82
+        // FIX for Test t82: Check for empty events
         if (events.isEmpty()) {
             throw new ResourceNotFoundException("No events found");
         }

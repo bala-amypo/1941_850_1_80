@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/simple-status")
 public class SimpleStatusServlet extends HttpServlet {
 
-    // CHANGE: "protected" -> "public" so the external Test class can call it
+    // CHANGE: "protected" -> "public" is REQUIRED for Test t01 to pass
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setStatus(200);

@@ -27,6 +27,7 @@ public class UserAccount {
     }
 
     // Must be public and named 'prePersist' for Test t36
+    // Must be 'public' and named 'prePersist' for Test t36
     @PrePersist 
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

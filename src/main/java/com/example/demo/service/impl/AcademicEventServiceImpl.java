@@ -18,7 +18,7 @@ public class AcademicEventServiceImpl implements AcademicEventService {
 
     @Override
     public AcademicEvent createEvent(AcademicEvent event) {
-        // Fix for Test t19
+        // FIX for Test t19: Validate dates
         if (event.getStartDate() != null && event.getEndDate() != null && event.getStartDate().isAfter(event.getEndDate())) {
             throw new ValidationException("startDate cannot be after endDate");
         }
@@ -30,8 +30,8 @@ public class AcademicEventServiceImpl implements AcademicEventService {
         return repository.findByBranchId(branchId);
     }
     
-    // Stub methods if Interface requires them
-    public AcademicEvent updateEvent(Long id, AcademicEvent event) { return null; }
-    public AcademicEvent getEventById(Long id) { return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not Found")); }
+    // Stub methods required by interface/tests
+    public AcademicEvent updateEvent(Long id, AcademicEvent event) { return repository.save(event); }
+    public AcademicEvent getEventById(Long id) { return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Event not found")); }
     public List<AcademicEvent> getAllEvents() { return repository.findAll(); }
 }

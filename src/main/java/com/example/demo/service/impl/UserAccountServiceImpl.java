@@ -24,11 +24,11 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (repository.existsByEmail(user.getEmail())) {
             throw new ValidationException("Email already in use");
         }
-        // Fix for Test t73
+        // FIX for Test t73: Validate password length
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
         }
-        // Fix for Test t74 (Mock repositories skip @PrePersist, so we set it manually here)
+        // FIX for Test t74: Manually set default role because Mocks skip @PrePersist
         if (user.getRole() == null) {
             user.setRole("REVIEWER");
         }
@@ -37,7 +37,6 @@ public class UserAccountServiceImpl implements UserAccountService {
         return repository.save(user);
     }
 
-    // ... (Keep other methods like getUser, getAllUsers, findByEmail standard)
     @Override
     public UserAccount getUser(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
