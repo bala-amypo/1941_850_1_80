@@ -27,6 +27,7 @@ public class ClashRecord {
         this.resolved = resolved;
     }
 
+    // Test t33
     @PrePersist 
     public void prePersist() {
         this.detectedAt = LocalDateTime.now();
@@ -39,6 +40,6 @@ public class ClashRecord {
     public String getClashType() { return clashType; } public void setClashType(String clashType) { this.clashType = clashType; }
     public String getSeverity() { return severity; } public void setSeverity(String severity) { this.severity = severity; }
     public String getDetails() { return details; } public void setDetails(String details) { this.details = details; }
-    public LocalDateTime getDetectedAt() { return detectedAt; }
+    public LocalDateTime getDetectedAt() { return detectedAt; } public void setDetectedAt(LocalDateTime detectedAt) { this.detectedAt = detectedAt; }
     public Boolean getResolved() { return resolved; } public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }

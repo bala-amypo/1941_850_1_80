@@ -26,6 +26,7 @@ public class EventMergeRecord {
         this.createdAt = createdAt;
     }
 
+    // Test t32
     @PrePersist 
     public void prePersist() { 
         this.createdAt = LocalDateTime.now(); 
@@ -37,5 +38,5 @@ public class EventMergeRecord {
     public LocalDate getMergedStartDate() { return mergedStartDate; } public void setMergedStartDate(LocalDate mergedStartDate) { this.mergedStartDate = mergedStartDate; }
     public LocalDate getMergedEndDate() { return mergedEndDate; } public void setMergedEndDate(LocalDate mergedEndDate) { this.mergedEndDate = mergedEndDate; }
     public String getMergeReason() { return mergeReason; } public void setMergeReason(String mergeReason) { this.mergeReason = mergeReason; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; } public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

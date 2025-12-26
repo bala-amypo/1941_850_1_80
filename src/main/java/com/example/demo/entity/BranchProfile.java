@@ -24,6 +24,7 @@ public class BranchProfile {
         this.active = active;
     }
 
+    // Must be public and named 'prePersist' for Test t30
     @PrePersist 
     public void prePersist() {
         this.lastSyncAt = LocalDateTime.now();
@@ -34,6 +35,6 @@ public class BranchProfile {
     public String getBranchCode() { return branchCode; } public void setBranchCode(String branchCode) { this.branchCode = branchCode; }
     public String getBranchName() { return branchName; } public void setBranchName(String branchName) { this.branchName = branchName; }
     public String getContactEmail() { return contactEmail; } public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
-    public LocalDateTime getLastSyncAt() { return lastSyncAt; }
+    public LocalDateTime getLastSyncAt() { return lastSyncAt; } public void setLastSyncAt(LocalDateTime lastSyncAt) { this.lastSyncAt = lastSyncAt; }
     public Boolean getActive() { return active; } public void setActive(Boolean active) { this.active = active; }
 }
