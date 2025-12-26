@@ -25,8 +25,12 @@ public class EventMergeRecord {
         this.mergeReason = mergeReason;
         this.createdAt = createdAt;
     }
-    @PrePersist public void prePersist() { this.createdAt = LocalDateTime.now(); }
-    // Getters/Setters omitted for brevity, MUST INCLUDE ALL
+
+    @PrePersist 
+    public void prePersist() { 
+        this.createdAt = LocalDateTime.now(); 
+    }
+
     public Long getId() { return id; } public void setId(Long id) { this.id = id; }
     public String getSourceEventIds() { return sourceEventIds; } public void setSourceEventIds(String sourceEventIds) { this.sourceEventIds = sourceEventIds; }
     public String getMergedTitle() { return mergedTitle; } public void setMergedTitle(String mergedTitle) { this.mergedTitle = mergedTitle; }
